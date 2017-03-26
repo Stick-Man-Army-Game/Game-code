@@ -18,7 +18,7 @@ char BoardMem[7][7] = { //Board memory
 	'0', '0', '0', '0', '0', '0', '0',
 	'B', '0', '0', '0', '0', '0', 'G', }; //top row of the board
 
-void drawStrokeText(char*string,int x,int y,int z)
+/*void drawStrokeText(char*string,int x,int y,int z)
 {
 	  char *c;
 	  glPushMatrix();
@@ -42,7 +42,7 @@ void print(void)
 
 	glutSwapBuffers(); 
 }
-
+*/
 bool isBoardFull(){
 	int i, j;
 	for (i = 0; i < 7; i++) {
