@@ -379,8 +379,8 @@ void drawSquare(GLint x1, GLint y1, GLint x2, GLint y2, GLint x3, GLint y3, GLin
 	// c alternates color of square
 	if (c == 0)
 	{
-		if(turn == 0) glColor3f(0, 0.4, 0);
-		else if(turn == 1) glColor3f(0.53,0.81,0.98);
+		if(turn == 0) glColor3f(0, 0.4, 0); //green
+		else if(turn == 1) glColor3f(0.1,0.1,0.44); //blue
 		c = 1;
 	}
 	else
