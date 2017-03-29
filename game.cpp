@@ -41,6 +41,38 @@ void print(void)
 	glutSwapBuffers(); 
 }
 */
+
+	void stickman(float xtranslation, float ytranslation, float g, float b)
+{
+	glMatrixMode(GL_MODELVIEW); // To operate on model-view matrix
+	glLoadIdentity();
+
+	glTranslatef(-34.0 + xtranslation*5.7, -34.0 + ytranslation*5.7, -60.0f);
+
+	glColor3f(0.0, g, b);
+	glBegin(GL_POLYGON);
+	glVertex3f((4.0 + 25)*0.5, (6.5 + 25)*0.5, -1.0);
+	glVertex3f((6.0 + 25)*0.5, (6.5 + 25)*0.5, -1.0);
+	glVertex3f((6.0 + 25)*0.5, (8.5 + 25)*0.5, -1.0);
+	glVertex3f((4.0 + 25)*0.5, (8.5 + 25)*0.5, -1.0);
+	glEnd();
+	glFlush();
+
+	glColor3f(0.0, g, b);
+	glBegin(GL_LINES);
+	glVertex3f((5.0 + 25)*0.5, (6.5 + 25)*0.5, -1.0);
+	glVertex3f((5.0 + 25)*0.5, (3.0 + 25)*0.5, -1.0);
+	glVertex3f((3.5 + 25)*0.5, (5.1 + 25)*0.5, -1.0);
+	glVertex3f((6.5 + 25)*0.5, (5.1 + 25)*0.5, -1.0);
+	glVertex3f((5.0 + 25)*0.5, (3.0 + 25)*0.5, -1.0);
+	glVertex3f((3.5 + 25)*0.5, (1.0 + 25)*0.5, -1.0);
+	glVertex3f((5.0 + 25)*0.5, (3.0 + 25)*0.5, -1.0);
+	glVertex3f((6.5 + 25)*0.5, (1.0 + 25)*0.5, -1.0);
+	glEnd();
+	glFlush();
+	
+}
+
 bool isBoardFull(){
 	int i, j;
 	for (i = 0; i < 7; i++) {
@@ -78,12 +110,18 @@ char winner(){
 				countB++;
 		}
 	}
-	if (countB>countG)
+	
+		if (countB>countG)
+	{
 		return 'B';
+	}
 	else if (countB < countG)
+	{
 		return 'G';
+	}
 	else
 		return '-1';
+
 }
 bool checkValidPosFirst(int xcoor, int ycoor, int turn){
 	char ch;
@@ -180,36 +218,6 @@ void replaceOpponent(int xcoor, int ycoor, int turn){
 	}
 }
 
-void stickman(float xtranslation, float ytranslation, float g, float b)
-{
-	glMatrixMode(GL_MODELVIEW); // To operate on model-view matrix
-	glLoadIdentity();
-
-	glTranslatef(-34.0 + xtranslation*5.7, -34.0 + ytranslation*5.7, -60.0f);
-
-	glColor3f(0.0, g, b);
-	glBegin(GL_POLYGON);
-	glVertex3f((4.0 + 25)*0.5, (6.5 + 25)*0.5, -1.0);
-	glVertex3f((6.0 + 25)*0.5, (6.5 + 25)*0.5, -1.0);
-	glVertex3f((6.0 + 25)*0.5, (8.5 + 25)*0.5, -1.0);
-	glVertex3f((4.0 + 25)*0.5, (8.5 + 25)*0.5, -1.0);
-	glEnd();
-	glFlush();
-
-	glColor3f(0.0, g, b);
-	glBegin(GL_LINES);
-	glVertex3f((5.0 + 25)*0.5, (6.5 + 25)*0.5, -1.0);
-	glVertex3f((5.0 + 25)*0.5, (3.0 + 25)*0.5, -1.0);
-	glVertex3f((3.5 + 25)*0.5, (5.1 + 25)*0.5, -1.0);
-	glVertex3f((6.5 + 25)*0.5, (5.1 + 25)*0.5, -1.0);
-	glVertex3f((5.0 + 25)*0.5, (3.0 + 25)*0.5, -1.0);
-	glVertex3f((3.5 + 25)*0.5, (1.0 + 25)*0.5, -1.0);
-	glVertex3f((5.0 + 25)*0.5, (3.0 + 25)*0.5, -1.0);
-	glVertex3f((6.5 + 25)*0.5, (1.0 + 25)*0.5, -1.0);
-	glEnd();
-	glFlush();
-	
-}
 
 void coordinate(int button, int state, int x, int y) {
 	//check whether the board is full or not
@@ -217,20 +225,7 @@ void coordinate(int button, int state, int x, int y) {
 	if (BoardFull){
 		cout << "\n The Board is full";
 		cout << "\nWinner is " << winner();
-		if ( winner()=='G')
-		{
-			stickman(7,7,1.0,0);
-		stickman(-1,7,1.0,0);
-			stickman(7,-0.5,1.0,0);
-			stickman(-1,-0.5,1.0,0);
-		}
-		else if (winner()=='B')
-		{
-		stickman(7,7,0,1.0);
-		stickman(7,-0.5,0,1.0);
-		stickman(-1,7,0,1.0);
-		stickman(-1,-0.5,0,1.0);
-		}
+		
 		//try to exit somehow
 	}
 	else //the board is not full and there is a need for check for winner if any
@@ -407,7 +402,7 @@ void drawSquare(GLint x1, GLint y1, GLint x2, GLint y2, GLint x3, GLint y3, GLin
 	if (c == 0)
 	{
 		if(turn == 0) glColor3f(0, 0.4, 0); //green
-		else if(turn == 1) glColor3f(0.1,0.1,0.44); //blue
+		else if(turn == 1) glColor3f(0.1,0.3,0.44); //blue
 		c = 1;
 	}
 	else
@@ -422,6 +417,7 @@ void drawSquare(GLint x1, GLint y1, GLint x2, GLint y2, GLint x3, GLint y3, GLin
 	glVertex3f(x3*0.08, y3*0.08, -4.0);
 	glVertex3f(x4*0.08, y4*0.08, -4.0);
 	glEnd();
+
 }
 void board()
 {
@@ -453,6 +449,22 @@ void board()
 				}
 			}
 		}
+	}
+	char win = isWinnerDecided();
+	if (win=='B')
+	{
+		
+		    stickman(7,7,0,1.0);
+	    	stickman(7,-0.5,0,1.0);
+		    stickman(-1,7,0,1.0);
+		    stickman(-1,-0.5,0,1.0);
+	}
+	else if (win == 'G')
+	{		
+			stickman(7,7,1.0,0);
+		    stickman(-1,7,1.0,0);
+			stickman(7,-0.5,1.0,0);
+			stickman(-1,-0.5,1.0,0);
 	}
 }
 
